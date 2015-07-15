@@ -1,0 +1,378 @@
+Created by PLY version 3.6 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ELSE
+
+Grammar
+
+Rule 0     S' -> commands
+Rule 1     commands -> empty
+Rule 2     commands -> commands command
+Rule 3     command -> zone_set
+Rule 4     zone_set -> ZONETOK quotename zonecontent
+Rule 5     zonecontent -> OBRACE zonestatements EBRACE SEMICOLON
+Rule 6     quotename -> QUOTE FILENAME QUOTE
+Rule 7     zonestatements -> empty
+Rule 8     zonestatements -> zonestatements zonestatement SEMICOLON
+Rule 9     zonestatement -> statements
+Rule 10    zonestatement -> FILETOK quotename
+Rule 11    block -> OBRACE zonestatements EBRACE SEMICOLON
+Rule 12    statements -> empty
+Rule 13    statements -> statements statement
+Rule 14    statement -> WORD
+Rule 15    statement -> block
+Rule 16    statement -> quotename
+Rule 17    empty -> <empty>
+
+Terminals, with rules where they appear
+
+EBRACE               : 5 11
+ELSE                 : 
+FILENAME             : 6
+FILETOK              : 10
+OBRACE               : 5 11
+QUOTE                : 6 6
+SEMICOLON            : 5 8 11
+WORD                 : 14
+ZONETOK              : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 15
+command              : 2
+commands             : 2 0
+empty                : 1 7 12
+quotename            : 4 10 16
+statement            : 13
+statements           : 9 13
+zone_set             : 3
+zonecontent          : 4
+zonestatement        : 8
+zonestatements       : 5 8 11
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . commands
+    (1) commands -> . empty
+    (2) commands -> . commands command
+    (17) empty -> .
+
+    ZONETOK         reduce using rule 17 (empty -> .)
+    $end            reduce using rule 17 (empty -> .)
+
+    commands                       shift and go to state 1
+    empty                          shift and go to state 2
+
+state 1
+
+    (0) S' -> commands .
+    (2) commands -> commands . command
+    (3) command -> . zone_set
+    (4) zone_set -> . ZONETOK quotename zonecontent
+
+    ZONETOK         shift and go to state 3
+
+    zone_set                       shift and go to state 5
+    command                        shift and go to state 4
+
+state 2
+
+    (1) commands -> empty .
+
+    ZONETOK         reduce using rule 1 (commands -> empty .)
+    $end            reduce using rule 1 (commands -> empty .)
+
+
+state 3
+
+    (4) zone_set -> ZONETOK . quotename zonecontent
+    (6) quotename -> . QUOTE FILENAME QUOTE
+
+    QUOTE           shift and go to state 6
+
+    quotename                      shift and go to state 7
+
+state 4
+
+    (2) commands -> commands command .
+
+    ZONETOK         reduce using rule 2 (commands -> commands command .)
+    $end            reduce using rule 2 (commands -> commands command .)
+
+
+state 5
+
+    (3) command -> zone_set .
+
+    ZONETOK         reduce using rule 3 (command -> zone_set .)
+    $end            reduce using rule 3 (command -> zone_set .)
+
+
+state 6
+
+    (6) quotename -> QUOTE . FILENAME QUOTE
+
+    FILENAME        shift and go to state 8
+
+
+state 7
+
+    (4) zone_set -> ZONETOK quotename . zonecontent
+    (5) zonecontent -> . OBRACE zonestatements EBRACE SEMICOLON
+
+    OBRACE          shift and go to state 10
+
+    zonecontent                    shift and go to state 9
+
+state 8
+
+    (6) quotename -> QUOTE FILENAME . QUOTE
+
+    QUOTE           shift and go to state 11
+
+
+state 9
+
+    (4) zone_set -> ZONETOK quotename zonecontent .
+
+    ZONETOK         reduce using rule 4 (zone_set -> ZONETOK quotename zonecontent .)
+    $end            reduce using rule 4 (zone_set -> ZONETOK quotename zonecontent .)
+
+
+state 10
+
+    (5) zonecontent -> OBRACE . zonestatements EBRACE SEMICOLON
+    (7) zonestatements -> . empty
+    (8) zonestatements -> . zonestatements zonestatement SEMICOLON
+    (17) empty -> .
+
+    EBRACE          reduce using rule 17 (empty -> .)
+    FILETOK         reduce using rule 17 (empty -> .)
+    SEMICOLON       reduce using rule 17 (empty -> .)
+    WORD            reduce using rule 17 (empty -> .)
+    OBRACE          reduce using rule 17 (empty -> .)
+    QUOTE           reduce using rule 17 (empty -> .)
+
+    zonestatements                 shift and go to state 12
+    empty                          shift and go to state 13
+
+state 11
+
+    (6) quotename -> QUOTE FILENAME QUOTE .
+
+    WORD            reduce using rule 6 (quotename -> QUOTE FILENAME QUOTE .)
+    OBRACE          reduce using rule 6 (quotename -> QUOTE FILENAME QUOTE .)
+    QUOTE           reduce using rule 6 (quotename -> QUOTE FILENAME QUOTE .)
+    SEMICOLON       reduce using rule 6 (quotename -> QUOTE FILENAME QUOTE .)
+
+
+state 12
+
+    (5) zonecontent -> OBRACE zonestatements . EBRACE SEMICOLON
+    (8) zonestatements -> zonestatements . zonestatement SEMICOLON
+    (9) zonestatement -> . statements
+    (10) zonestatement -> . FILETOK quotename
+    (12) statements -> . empty
+    (13) statements -> . statements statement
+    (17) empty -> .
+
+    EBRACE          shift and go to state 15
+    FILETOK         shift and go to state 16
+    WORD            reduce using rule 17 (empty -> .)
+    OBRACE          reduce using rule 17 (empty -> .)
+    QUOTE           reduce using rule 17 (empty -> .)
+    SEMICOLON       reduce using rule 17 (empty -> .)
+
+    statements                     shift and go to state 14
+    zonestatement                  shift and go to state 17
+    empty                          shift and go to state 18
+
+state 13
+
+    (7) zonestatements -> empty .
+
+    EBRACE          reduce using rule 7 (zonestatements -> empty .)
+    FILETOK         reduce using rule 7 (zonestatements -> empty .)
+    SEMICOLON       reduce using rule 7 (zonestatements -> empty .)
+    WORD            reduce using rule 7 (zonestatements -> empty .)
+    OBRACE          reduce using rule 7 (zonestatements -> empty .)
+    QUOTE           reduce using rule 7 (zonestatements -> empty .)
+
+
+state 14
+
+    (9) zonestatement -> statements .
+    (13) statements -> statements . statement
+    (14) statement -> . WORD
+    (15) statement -> . block
+    (16) statement -> . quotename
+    (11) block -> . OBRACE zonestatements EBRACE SEMICOLON
+    (6) quotename -> . QUOTE FILENAME QUOTE
+
+    SEMICOLON       reduce using rule 9 (zonestatement -> statements .)
+    WORD            shift and go to state 19
+    OBRACE          shift and go to state 20
+    QUOTE           shift and go to state 6
+
+    quotename                      shift and go to state 22
+    block                          shift and go to state 23
+    statement                      shift and go to state 21
+
+state 15
+
+    (5) zonecontent -> OBRACE zonestatements EBRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 24
+
+
+state 16
+
+    (10) zonestatement -> FILETOK . quotename
+    (6) quotename -> . QUOTE FILENAME QUOTE
+
+    QUOTE           shift and go to state 6
+
+    quotename                      shift and go to state 25
+
+state 17
+
+    (8) zonestatements -> zonestatements zonestatement . SEMICOLON
+
+    SEMICOLON       shift and go to state 26
+
+
+state 18
+
+    (12) statements -> empty .
+
+    WORD            reduce using rule 12 (statements -> empty .)
+    OBRACE          reduce using rule 12 (statements -> empty .)
+    QUOTE           reduce using rule 12 (statements -> empty .)
+    SEMICOLON       reduce using rule 12 (statements -> empty .)
+
+
+state 19
+
+    (14) statement -> WORD .
+
+    WORD            reduce using rule 14 (statement -> WORD .)
+    OBRACE          reduce using rule 14 (statement -> WORD .)
+    QUOTE           reduce using rule 14 (statement -> WORD .)
+    SEMICOLON       reduce using rule 14 (statement -> WORD .)
+
+
+state 20
+
+    (11) block -> OBRACE . zonestatements EBRACE SEMICOLON
+    (7) zonestatements -> . empty
+    (8) zonestatements -> . zonestatements zonestatement SEMICOLON
+    (17) empty -> .
+
+    EBRACE          reduce using rule 17 (empty -> .)
+    FILETOK         reduce using rule 17 (empty -> .)
+    SEMICOLON       reduce using rule 17 (empty -> .)
+    WORD            reduce using rule 17 (empty -> .)
+    OBRACE          reduce using rule 17 (empty -> .)
+    QUOTE           reduce using rule 17 (empty -> .)
+
+    zonestatements                 shift and go to state 27
+    empty                          shift and go to state 13
+
+state 21
+
+    (13) statements -> statements statement .
+
+    WORD            reduce using rule 13 (statements -> statements statement .)
+    OBRACE          reduce using rule 13 (statements -> statements statement .)
+    QUOTE           reduce using rule 13 (statements -> statements statement .)
+    SEMICOLON       reduce using rule 13 (statements -> statements statement .)
+
+
+state 22
+
+    (16) statement -> quotename .
+
+    WORD            reduce using rule 16 (statement -> quotename .)
+    OBRACE          reduce using rule 16 (statement -> quotename .)
+    QUOTE           reduce using rule 16 (statement -> quotename .)
+    SEMICOLON       reduce using rule 16 (statement -> quotename .)
+
+
+state 23
+
+    (15) statement -> block .
+
+    WORD            reduce using rule 15 (statement -> block .)
+    OBRACE          reduce using rule 15 (statement -> block .)
+    QUOTE           reduce using rule 15 (statement -> block .)
+    SEMICOLON       reduce using rule 15 (statement -> block .)
+
+
+state 24
+
+    (5) zonecontent -> OBRACE zonestatements EBRACE SEMICOLON .
+
+    ZONETOK         reduce using rule 5 (zonecontent -> OBRACE zonestatements EBRACE SEMICOLON .)
+    $end            reduce using rule 5 (zonecontent -> OBRACE zonestatements EBRACE SEMICOLON .)
+
+
+state 25
+
+    (10) zonestatement -> FILETOK quotename .
+
+    SEMICOLON       reduce using rule 10 (zonestatement -> FILETOK quotename .)
+
+
+state 26
+
+    (8) zonestatements -> zonestatements zonestatement SEMICOLON .
+
+    EBRACE          reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+    FILETOK         reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+    SEMICOLON       reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+    WORD            reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+    OBRACE          reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+    QUOTE           reduce using rule 8 (zonestatements -> zonestatements zonestatement SEMICOLON .)
+
+
+state 27
+
+    (11) block -> OBRACE zonestatements . EBRACE SEMICOLON
+    (8) zonestatements -> zonestatements . zonestatement SEMICOLON
+    (9) zonestatement -> . statements
+    (10) zonestatement -> . FILETOK quotename
+    (12) statements -> . empty
+    (13) statements -> . statements statement
+    (17) empty -> .
+
+    EBRACE          shift and go to state 28
+    FILETOK         shift and go to state 16
+    WORD            reduce using rule 17 (empty -> .)
+    OBRACE          reduce using rule 17 (empty -> .)
+    QUOTE           reduce using rule 17 (empty -> .)
+    SEMICOLON       reduce using rule 17 (empty -> .)
+
+    statements                     shift and go to state 14
+    zonestatement                  shift and go to state 17
+    empty                          shift and go to state 18
+
+state 28
+
+    (11) block -> OBRACE zonestatements EBRACE . SEMICOLON
+
+    SEMICOLON       shift and go to state 29
+
+
+state 29
+
+    (11) block -> OBRACE zonestatements EBRACE SEMICOLON .
+
+    WORD            reduce using rule 11 (block -> OBRACE zonestatements EBRACE SEMICOLON .)
+    OBRACE          reduce using rule 11 (block -> OBRACE zonestatements EBRACE SEMICOLON .)
+    QUOTE           reduce using rule 11 (block -> OBRACE zonestatements EBRACE SEMICOLON .)
+    SEMICOLON       reduce using rule 11 (block -> OBRACE zonestatements EBRACE SEMICOLON .)
+

@@ -1,11 +1,3 @@
-title: PLY(Python Lex Yacc)简明笔记
-categories: python
-tags:
-  - python
-  - 编译原理
-description: python lex yacc usage simple demos.
-date: 2015-07-15 20:01:50
----
 #说明
 本笔记是将 Lex&YACC HOWTO\[[1](http://segmentfault.com/a/1190000000396608#articleHeader24)\] 的部分内容用PLY重新实现。
 本文不是正则表达式的教程，相关内容请寻找其他教程。
